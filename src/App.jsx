@@ -1,15 +1,17 @@
-import { Container } from '@mui/system';
-import './App.css';
-import Header from './components/Header/Header';
-import Search from './components/Search/Search';
 
-const App = () => {
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import CharactersContainer from './components/Characters/CharactersContainer';
+import Header from './components/Header/Header';
+
+
+const App = (props) => {
   return (
     <div>
       <Header />
-      <Container sx={{mt:"1rem"}}>
-        <Search />
-      </Container>
+      <Routes>
+        <Route path='*' element={<CharactersContainer />}/>
+      </Routes>
     </div>
   )
 }
