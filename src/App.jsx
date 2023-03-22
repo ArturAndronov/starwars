@@ -1,18 +1,18 @@
 
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import CharacterDetailsContainer from './components/CharacterDetails/CharacterDetailsContainer';
 import CharactersContainer from './components/Characters/CharactersContainer';
 import Header from './components/Header/Header';
-import PersonPageContainer from './components/PersonPage/PersonPageContainer';
 
 
-const App = (props) => {
+const App = () => {
   return (
     <div>
       <Header />
       <Routes>
-        <Route path='*' element={<CharactersContainer />}/>
-        <Route path='/people/:id' element={<PersonPageContainer />}/>
+        <Route exact path='*' element={<CharactersContainer />}/>
+        <Route exact path='/people/:id' element={<CharacterDetailsContainer/>}/>
       </Routes>
     </div>
   )

@@ -1,25 +1,63 @@
 import React from "react";
 import styles from "./characters.module.css";
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { Container } from '@mui/system';
-import Search from '../Search/Search'
+import Character from "./Character/Character";
+import { useState } from 'react';
+import { ListItemButton, ListItemText, TextField } from '@mui/material';
 
 
-let Characters = (props) => {
-    debugger;
+let Characters = ({ people }) => {
+    const [value, setValue] = useState('')
+
+    const filteredPeople = people.filter(people => {
+        return people.name.toLowerCase().includes(value.toLowerCase())
+    })
+
+    const [isOpen, setIsOpen] = useState(true)
+
+    const itemClickHandler = (e) => {
+        setValue(e.target.textContent)
+        setIsOpen(!isOpen)
+    }
+
+    const inputClickHandler = () => {
+        setIsOpen(true)
+    }
+
     return (
         <>
             <Container sx={{ mt: "1rem" }}>
-                <Search />
+                <TextField
+                    label="Search"
+                    variant="outlined"
+                    fullWidth
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                    onClick={inputClickHandler}
+                    sx={{
+                        mb: "1.5rem"
+                    }}
+                />
+                {
+                    value && isOpen
+                    ? filteredPeople.map((peop) => <ListItemButton onClick={itemClickHandler}> 
+                        <ListItemText primary={peop.name} />
+                    </ListItemButton>)
+                    : null
+                }
+
+                {/* <ul className={styles.autocomplete}>
+                    {
+                        value
+                        ? filteredPeople.map((peop) => <li className={styles.autocomplete__item}>{peop.name}</li>)
+                        : null
+                    }
+
+                </ul> */}
             </Container>
             <ul className={styles.listContainer}>
-                {props.people.map((p,i)=>
-                    <li className={styles.listItem} key={p.id}>
-                        <Link to={`/people/${i+1}`}>
-                            <img className={styles.personPhoto} src={`https://starwars-visualguide.com/assets/img/characters/${i+1}.jpg`} alt='Изображение отсутствует' />
-                            <p>{p.name}</p>
-                        </Link>
-                    </li>)}
+                {filteredPeople.map((peop) => <Character people={peop} key={peop.id} />)}
             </ul>
         </>
     )

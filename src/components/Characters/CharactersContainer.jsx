@@ -1,24 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setPeopleAC } from "../../redux/characters-reducer";
-import axios from "axios";
+import { getPeople, getIsFetching } from "../../redux/people-selectors"
+import { requestPeople } from "../../redux/characters-reducer";
 import Characters from "./Characters";
-
-
+import Preloader from "../../common/Preloader/Preloader";
 
 class CharactersContainer extends React.Component {
-
     componentDidMount() {
-        axios.get(`https://swapi.dev/api/people/`)
-            .then(response => {
-                console.log(response);
-                this.props.setPeople(response.data.results);
-            });
+        this.props.requestPeople();
     }
 
     render() {
-        return <Characters people={this.props.people} id={this.props.id}
-        />
+        return <>
+            {this.props.isFetching ? <Preloader /> : null}
+            <Characters people={this.props.people}
+            />
+        </>
 
     }
 }
@@ -26,16 +23,9 @@ class CharactersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        people: state.peoplePage.people,
+        people: getPeople(state),
+        isFetching: getIsFetching(state),
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setPeople: (people) => {
-            dispatch(setPeopleAC(people))
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CharactersContainer);
+export default connect(mapStateToProps, { requestPeople })(CharactersContainer);

@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { NavLink } from 'react-router-dom'
+import styles from './header.module.css'
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,7 +13,6 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import { DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -56,9 +58,9 @@ const Header = () => {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem onClick={handleCloseMenu}>Home</MenuItem>
-              <MenuItem onClick={handleCloseMenu}>Characters</MenuItem>
-              <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
+              <MenuItem onClick={handleCloseMenu} className={styles.MenuItem}><NavLink to={`/`}>Home</NavLink></MenuItem>
+              <MenuItem onClick={handleCloseMenu} className={styles.MenuItem}><NavLink to={`/`}>Characters</NavLink></MenuItem>
+              <MenuItem onClick={handleCloseMenu} className={styles.MenuItem}><NavLink to={`/`}>Logout</NavLink></MenuItem>
             </Menu>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

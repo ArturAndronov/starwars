@@ -1,4 +1,3 @@
-
 .listContainer {
     display: flex;
     flex-wrap: wrap;
@@ -6,22 +5,29 @@
     padding: 0;
     list-style-type: none;
 }
-.listItem {
-    width: 190px;
-    margin: var(--spacing-medium);
-    border-radius: var(--border-radius-small);
-    background-color: var(--color-white);
-    cursor: pointer;
-}
-.listItem a {
-    text-decoration: none;
-    color: var(--color-black);
-    text-align: center;
-}
-.personPhoto {
+
+.autocomplete {
+    position: absolute;
+    left: 0;
+    top: 50px;
     width: 100%;
-    height: 260px;
-    object-fit: cover;
-    object-position: top center;
-    border-radius: var(--border-radius-small) var(--border-radius-small) 0 0;
+    background: white;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+    z-index: 111;
+    max-height: 240px;
+    height: auto;
+    overflow: auto;
+}
+
+.autocomplete__item {
+    padding: 10px;
+
+}
+.autocomplete__item:hover{
+    background: rgb(180, 180, 180);
+    cursor: pointer;
+    transition: cubic-bezier(1, 0, 0, 1) .3s all;
 }
